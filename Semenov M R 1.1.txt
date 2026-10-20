@@ -1,0 +1,62 @@
+#include <iostream>
+#include <cmath>
+
+int main()
+{
+    // Метод половинного деления
+    double B, L, R;
+
+    B = 0;
+    L = 1;
+    R = 3;
+
+    int shag = 0;
+
+    while (R - L > 0.0001)
+    {
+        shag++;
+
+        B = (L + R) / 2;
+
+        if ((3 * B - 14 + exp(B) - exp(-B)) *
+            (3 * L - 14 + exp(L) - exp(-L)) < 0)
+        {
+            R = B;
+        }
+        else
+        {
+            L = B;
+        }
+
+        std::cout << shag << " " << B << std::endl;
+    }
+
+    B = (L + R) / 2;
+    std::cout << B << std::endl;
+
+
+    // Метод хорд
+    double L2, R2, y_R, y_L;
+
+    L2 = 1;
+    R2 = 3;
+
+    y_R = 3 * R2 - 14 + exp(R2) - exp(-R2);
+    y_L = 3 * L2 - 14 + exp(L2) - exp(-L2);
+
+    int shag2 = 0;
+
+    while (abs(y_R) > 0.0001)
+    {
+        y_R = 3 * R2 - 14 + exp(R2) - exp(-R2);
+        y_L = 3 * L2 - 14 + exp(L2) - exp(-L2);
+
+        shag2++;
+
+        R2 = (0 - y_L) * (R2 - L2) / (y_R - y_L) + L2;
+
+        std::cout << shag2 << " " << R2 << std::endl;
+    }
+
+    return 0;
+}
